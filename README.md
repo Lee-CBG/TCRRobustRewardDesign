@@ -1,6 +1,16 @@
 # Mitigating Goodhart's Law in Epitope-Conditioned TCR Generation Using Plug-and-Play Reward Designs
 
-This repository provides the full experimental codebase, evaluation pipeline, and figures accompanying our RECOMB submission **“Mitigating Goodhart's Law in Epitope-Conditioned TCR Generation Using Plug-and-Play Reward Designs.”**  
+Code Release for RECOMB Submission
+
+This repository contains the full codebase used in our RECOMB submission **“Mitigating Goodhart's Law in Epitope-Conditioned TCR Generation Using Plug-and-Play Reward Designs”**.  
+It includes:
+
+- Reinforcement learning training code  
+- Reward model definitions and scoring functions  
+- Reproducible evaluation pipeline  
+- Data used in experiments  
+- Figures for the paper  
+
 
 ---
 
@@ -33,7 +43,7 @@ Our reward hacking mitigation strategies improve RL stability, reduce unrealisti
 
 ---
 
-### **Figure 2 — Reward Drift and Biological Evaluation Metrics**
+### **Plug-and-Play Reward Design Mitigates Reward Hacking**
 
 <p align="center">
   <img src="figs/mitigation.png" width="850"/>
@@ -49,7 +59,7 @@ Our reward hacking mitigation strategies improve RL stability, reduce unrealisti
 
 ---
 
-### **Figure 3 — Reward Designs Stabilize Distributional Trajectories**
+### **Reward Designs Stabilize Distributional Trajectories during TCR Generation**
 
 <p align="center">
   <img src="figs/trajectory.png" width="850"/>
@@ -65,7 +75,7 @@ Our reward hacking mitigation strategies improve RL stability, reduce unrealisti
 
 ---
 
-### **Figure 4 — Early-Stopped vs Fully Trained Models**
+### **Delaying Goodhart’s Failure Enables Stable Learning and Better Generalization**
 
 <p align="center">
   <img src="figs/es_vs_full_training.png" width="850"/>
@@ -81,89 +91,55 @@ Our reward hacking mitigation strategies improve RL stability, reduce unrealisti
 
 ---
 
+## 🚀 Model Training and Eval
 
-
-
-
-### 🔹 Figure 1: Mitigation Improves RL Stability
-
-<p align="center">
-  <img src="figs/training_stability.png" width="650"/>
-  <br/>
-  <em>Mitigation strategies suppress degenerate behavior and stabilize reward trajectories during RL training.</em>
-</p>
-
----
-
-### 🔹 Figure 2: Effects on TCR Diversity and Distribution
-
-<p align="center">
-  <img src="figs/sequence_diversity.png" width="650"/>
-  <br/>
-  <em>Compared to naive RL optimization, mitigation strategies maintain epitope-specific diversity and prevent mode collapse.</em>
-</p>
-
----
-
-## 🚀 Getting Started
-
-### 🔧 Installation
+### 🔧 RL Environment
 
 ```bash
-git clone https://github.com/your_org/your_repo.git
-cd your_repo
+git clone https://github.com/Lee-CBG/TCRRobustRewardDesign
+cd TCRRobustRewardDesign
 
 conda create -n tcr_env python=3.10 -y
 conda activate tcr_env
 
-pip install -r requirements.txt
+pip install wandb==0.18.3 \
+            torch==2.0.1+cu117 \
+            pandas==2.2.2 \
+            numpy==1.26.4 \
+            datasets==3.0.1 \
+            transformers==4.45.1 \
+            trl==0.11.1
 
 ```
 
+### 🤖 Running the RL Model
 
+The reinforcement learning experiments in the paper can be reproduced using the notebooks provided under `rl/`
 
+### 📥 Download Pretrained Models
 
+Pretrained surrogate binding models, reward ensembles, and reference policies used in the experiments can be downloaded here:
 
+🔗 **Google Drive Models (Pretrained & Ready-to-Use)**  
+https://drive.google.com/drive/folders/1eqfLF7gHVIFlqYoUm3cNCTovYp30jXUP?usp=sharing
 
+### 📈 Running Evaluation
 
-# Mitigating Reward Hacking in TCR Sequence Generation  
-Code Release for RECOMB Submission
+The following **8 metrics** are computed or supported in this repository:
 
-This repository contains the full codebase used in our RECOMB submission **“Mitigating Reward Hacking in TCR Sequence Generation”**.  
-It includes:
+1. **TCRdist** — IMGT-aligned amino-acid distance  
+2. **AA-Entropy** — amino-acid usage diversity  
+3. **TCRMatch similarity** — nearest-neighbor similarity to validated TCRs  
+4. **GPT Log-Likelihood (GPT LL)** — language-model plausibility of generated TCRs  
+5. **TCR-BERT Log-Likelihood (All positions)** — full-sequence contextual likelihood  
+6. **TCR-BERT Log-Likelihood (Masking)** — masked-residue authenticity score  
+7. **netTCR binding score** — surrogate affinity predictor  
+8. **ERGO-LSTM binding score** — sequence-model binding affinity estimator  
 
-- Reinforcement learning training code  
-- Reward model definitions and scoring functions  
-- Reproducible evaluation pipeline  
-- Data used in experiments  
-- Figures for the paper  
-
-
-
-
+They can be found in the `eval/` directory.
 
 ---
 
-## 🧬 Overview
+## 🤝 Contributing
 
-We study **reward hacking** in TCR sequence generation models trained with reinforcement learning.  
-To prevent models from exploiting degenerate heuristics, we implement:
-
-- **Reward-model smoothing**  
-- **Ensemble rewards**  
-- **Distribution-level regularization**  
-
-
-## 🚀 Installation
-
-```bash
-git clone https://github.com/<lab>/<repo>.git
-cd <repo>
-
-# Recommended: use conda
-conda create -n tcr_env python=3.10 -y
-conda activate tcr_env
-
-pip install -r requirements.txt
-```
-
+We welcome contributions! Please submit a pull request or open an issue if you encounter any problems. 
