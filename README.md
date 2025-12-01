@@ -138,6 +138,9 @@ The following **8 metrics** are computed or supported in this repository:
 
 They can be found in the `eval/` directory.
 
+For **structure-related analyses**, please refer to:  
+👉 https://github.com/gloriagrama/tcr_structure
+
 ---
 
 ## 🤝 Contributing

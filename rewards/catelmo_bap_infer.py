@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+
+'''
+python catelmo_bap_infer.py --input-path ./path/to/inputs.csv --output-path ./path/to/outputs.csv --model-path ./path/to/model.pth
+'''
+
 import pandas as pd
 import torch
 import torch.nn as nn
